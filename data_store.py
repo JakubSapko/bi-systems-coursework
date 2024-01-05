@@ -1,7 +1,6 @@
 from ucimlrepo import fetch_ucirepo
 from sklearn.model_selection import train_test_split
 
-
 class DataStore:
 
     def __init__(self):
@@ -26,12 +25,14 @@ class DataStore:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.25)
 
     def get_data(self):
-        return self.X, self.y, self.X_test
+        return self.X_train, self.y_train, self.X_test, self.y_test
 
     def build_additional_features(self):
         self.X['total_acidity'] = self.X['fixed_acidity'] + self.X['volatile_acidity']
         self.X['total_sulfur'] = self.X['free_sulfur_dioxide'] + self.X['total_sulfur_dioxide']
         self.X['ratio_sulfur'] = self.X['free_sulfur_dioxide'] / self.X['total_sulfur_dioxide']
+        self.X['ratio_ph_to_acidity'] = self.X['pH'] / self.X['total_acidity']
+        self.X['ratio_sugar_to_acidity'] = self.X['residual_sugar'] / self.X['total_acidity']
 
     def print_data(self):
         print(self.X.head())

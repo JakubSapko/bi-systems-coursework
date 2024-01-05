@@ -1,4 +1,4 @@
-from data.data_store import DataStore
+from data_store import DataStore
 
 
 if __name__ == '__main__':
